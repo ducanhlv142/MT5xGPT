@@ -1,4 +1,7 @@
 import MetaTrader5 as mt5
+import os
+import openai
+
 
 def get_signal(symbol="BTCUSD", timeframe=mt5.TIMEFRAME_M1):
     rates = mt5.copy_rates_from_pos(symbol, timeframe, 0, 50)
@@ -19,9 +22,5 @@ def get_signal(symbol="BTCUSD", timeframe=mt5.TIMEFRAME_M1):
 
     print(f"EMA5: {ema_fast: .2f}, EMA20: {ema_slow: .2f}, RSI: {rsi:.2f}")
 
-    if ema_fast > ema_slow and rsi < 70:
-        return "BUY"
-    elif ema_fast < ema_slow and rsi > 30:
-        return "SELL"
-    else:
-        return "WAIT"
+    signal = ask_gpt_decision(ema_fast, ema_slow, rsi)
+    return signal

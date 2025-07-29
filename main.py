@@ -3,6 +3,15 @@ import MetaTrader5 as mt5
 from strategy import get_signal
 from datetime import datetime
 import time
+from dotenv import load_dotenv
+import os
+
+
+load_dotenv()  # Load variables từ file .env
+
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+if not OPENAI_API_KEY:
+    raise ValueError("OPENAI_API_KEY is not set in the environment variables.")
 
 symbol = "BTCUSD"
 lot = 0.01
