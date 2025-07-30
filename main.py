@@ -48,7 +48,11 @@ while True:
     if now.minute % 1 == 0:
         signal = get_signal(symbol)
         print(f"Signal: {signal} at {now.strftime('%H:%M:%S')}")
-        if signal in ["BUY", "SELL"]:
-            send_order(signal)
+        if "BUY" in signal:
+            send_order("BUY")
+        elif "SELL" in signal:
+            send_order("SELL")
+        elif "WAIT" in signal:  
+            print("No action taken, waiting for next signal.")
     
-    time.sleep(60)  # Wait for the next minute import datetime
+    time.sleep(9)  # Wait for the next minute import datetime
